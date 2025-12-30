@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MRT Note Preview</title>
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            font-family: 'Consolas', 'Courier New', monospace;
+            padding: 20px;
+            line-height: 1.5;
+        }
+        #content {
+            white-space: pre-wrap;
+            background-color: #252526;
+            padding: 15px;
+            border: 1px solid #3e3e42;
+            border-radius: 5px;
+        }
+        .error { color: #f48771; }
+    </style>
+</head>
+<body>
+    <h2>Raid Note Preview</h2>
+    <div id="content">Loading...</div>
+
+    <script>
+        function parseMRT(text) {
+            // Replace color codes |cffRRGGBB...|r
+            // We use a regex that matches |c(8 hex chars)(content)|r
+            // Note: MRT colors are usually |cffRRGGBB
+            
+            let html = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            
+            // Regex for color tags: |c[alpha][RRGGBB]...|r
+            // We assume alpha is always ff or similar, we just want the last 6 chars for CSS
+            const colorRegex = /\|c[0-9a-fA-F]{2}([0-9a-fA-F]{6})(.*?)\|r/g;
+            
+            // We need to handle nested tags or sequential tags carefully.
+            // A simple replace might miss nested ones, but MRT usually doesn't nest deeply.
+            // Let's do a recursive approach or just iterative replacement until no match.
+            
+            // Simple iterative approach for single level
+            html = html.replace(colorRegex, (match, hex, content) => {
+                return `<span style="color: #${hex}">${content}</span>`;
+            });
+
+            // Handle remaining |r if any (sometimes people mess up nesting)
+            html = html.replace(/\|r/g, '');
+
+            return html;
+        }
+
+        // Function to load content (will be called by the python script injecting data)
+        function loadNote(text) {
+            document.getElementById('content').innerHTML = parseMRT(text);
+        }
+    </script>
+</body>
+</html>

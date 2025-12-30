@@ -1,49 +1,25 @@
-# Roster Update Tool
+## Tools
 
-This tool allows you to quickly swap player names in your raid notes while maintaining (or updating) their class colors.
+### 1. Roster Updater (Manual)
+Quickly swap player names globally.
+1. Edit `tools/roster_changes.json`.
+2. Run `python tools/update_roster.py`.
 
-## Setup
+### 2. AI Note Editor
+Update notes using natural language instructions.
+Requires `OPENAI_API_KEY` environment variable.
 
-1.  Open `tools/roster_changes.json`.
-2.  Add the players you want to replace.
-
-## Usage
-
-### 1. Edit `roster_changes.json`
-
-Format:
-```json
-{
-    "OldPlayerName": {
-        "new_name": "NewPlayerName",
-        "class": "Class" 
-    }
-}
-```
-
-**Supported Classes:**
-- Death Knight
-- Demon Hunter
-- Druid
-- Evoker
-- Hunter
-- Mage
-- Monk
-- Paladin
-- Priest
-- Rogue
-- Shaman
-- Warlock
-- Warrior
-
-*Note: If you omit the "class" field, the script will keep the original color of the old player.*
-
-### 2. Run the Script
-
-Open a terminal in VS Code and run:
-
+**Usage:**
 ```powershell
-python tools/update_roster.py
+$env:OPENAI_API_KEY="your-key-here"
+python tools/ai_update.py "Change Sombyra to Ulgarscita (Rogue) in the liquidMass section"
 ```
 
-This will update **all .txt files** in the main folder (e.g., `dimensius.txt`) with the new names and colors.
+### 3. Note Preview
+View the rendered note with class colors in your browser.
+
+**Usage:**
+```powershell
+python tools/show_preview.py
+```
+
