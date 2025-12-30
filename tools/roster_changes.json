@@ -1,0 +1,10 @@
+{
+    "Hrddtechno": {
+        "new_name": "NewPlayerName",
+        "class": "Mage"
+    },
+    "Cryztal": {
+        "new_name": "AnotherPlayer",
+        "class": "Warrior"
+    }
+}

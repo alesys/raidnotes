@@ -26,6 +26,12 @@ The notes are formatted for use with **Liquid's WeakAuras** pack.
 3. Navigate to the Note section.
 4. Click "Import" and paste the note content.
 
+## Tools
+
+### Roster Updater
+We have a tool to quickly swap player names in the notes when your roster changes.
+See [tools/README.md](tools/README.md) for instructions.
+
 ## Contributing
 
 Feel free to add new notes for different raid encounters or improve existing ones.
